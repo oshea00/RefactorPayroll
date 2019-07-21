@@ -15,7 +15,7 @@ namespace Tests
                         HourlyRate  = 30.5 },
                         WorkingHours = 160
                     },
-                    SalaryStrategy = new SeniorSalaryStrategy()
+                    SalaryStrategy = SeniorSalaryStrategy.Instance
                 },
                 new Timecard { MonthlyHours =
                     new DeveloperReport {
@@ -23,7 +23,7 @@ namespace Tests
                         HourlyRate  = 20 },
                         WorkingHours = 150
                     },
-                    SalaryStrategy = new JuniorSalaryStrategy()
+                    SalaryStrategy = JuniorSalaryStrategy.Instance
                 },
                 new Timecard { MonthlyHours =
                     new DeveloperReport {
@@ -31,7 +31,7 @@ namespace Tests
                         HourlyRate  = 30.5 },
                         WorkingHours = 180
                     },
-                    SalaryStrategy = new SeniorSalaryStrategy()
+                    SalaryStrategy = SeniorSalaryStrategy.Instance
                 }
             };
 

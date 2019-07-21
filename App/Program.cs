@@ -15,21 +15,21 @@ namespace App
                         Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior,
                         HourlyRate  = 30.5 }, WorkingHours = 160
                     },
-                    SalaryStrategy = new SeniorSalaryStrategy()
+                    SalaryStrategy = SeniorSalaryStrategy.Instance
                 },
                 new Timecard { MonthlyHours =
                     new DeveloperReport {
                         Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior,
                         HourlyRate  = 20 }, WorkingHours = 150
                     },
-                    SalaryStrategy = new JuniorSalaryStrategy()
+                    SalaryStrategy = JuniorSalaryStrategy.Instance
                 },
                 new Timecard { MonthlyHours =
                     new DeveloperReport {
                         Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior,
                         HourlyRate  = 30.5 }, WorkingHours = 180
                     },
-                    SalaryStrategy = new SeniorSalaryStrategy()
+                    SalaryStrategy = SeniorSalaryStrategy.Instance
                 }
             };
 
@@ -64,6 +64,9 @@ namespace App
 
     public class SeniorSalaryStrategy : ISalaryStrategy
     {
+        private static readonly SeniorSalaryStrategy _instance = new SeniorSalaryStrategy();
+        public static SeniorSalaryStrategy Instance => _instance;
+
         public double Calculate(DeveloperReport rpt)
         {
             return rpt.WorkingHours * rpt.Developer.HourlyRate * 1.2;
@@ -72,6 +75,8 @@ namespace App
 
     public class JuniorSalaryStrategy : ISalaryStrategy
     {
+        private static readonly JuniorSalaryStrategy _instance = new JuniorSalaryStrategy();
+        public static JuniorSalaryStrategy Instance => _instance;
         public double Calculate(DeveloperReport rpt)
         {
             return rpt.WorkingHours * rpt.Developer.HourlyRate;
