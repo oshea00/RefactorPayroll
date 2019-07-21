@@ -2,7 +2,8 @@
 
 The program calculates total payroll given developer pay rate and hours worked.
 
-The program to be re-factored is on the "Start" branch.
+The original program is in the "Start" branch of this repo, the re-factored
+program is in the "Refactored" branch.
 
 # Re-factoring Approach -
 
@@ -37,4 +38,5 @@ subtypes, since there is no inheritance in the current object model)
 3. Create TimeCard to contain hours, developer and payroll strategy.
 4. Use Linq.Enumerable.Sum instead of the Payroll calculation loop.
 5. SalaryCalculator references abstrations of ITimecard and IEnumerable.
+
 
