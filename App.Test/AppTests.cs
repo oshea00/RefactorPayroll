@@ -7,26 +7,29 @@ namespace Tests
 {
     public class AppTests
     {
-        List<Timecard> devReports = new List<Timecard>
+        List<ITimecard> devReports = new List<ITimecard>
             {
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior },
-                        HourlyRate  = 30.5, WorkingHours = 160
+                        Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior,
+                        HourlyRate  = 30.5 },
+                        WorkingHours = 160
                     },
                     SalaryStrategy = new SeniorSalaryStrategy()
                 },
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior },
-                        HourlyRate  = 20, WorkingHours = 150
+                        Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior,
+                        HourlyRate  = 20 },
+                        WorkingHours = 150
                     },
                     SalaryStrategy = new JuniorSalaryStrategy()
                 },
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior },
-                        HourlyRate  = 30.5, WorkingHours = 180
+                        Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior,
+                        HourlyRate  = 30.5 },
+                        WorkingHours = 180
                     },
                     SalaryStrategy = new SeniorSalaryStrategy()
                 }
@@ -44,8 +47,8 @@ namespace Tests
         {
             var calc = new SeniorSalaryStrategy();
             var senior = devReports
-                .Where(r => r.WeeklyHours.Developer.Level == Developer.DeveloperLevel.Senior)
-                .Select(t => t.WeeklyHours)
+                .Where(r => r.MonthlyHours.Developer.Level == Developer.DeveloperLevel.Senior)
+                .Select(t => t.MonthlyHours)
                 .First();
             Assert.AreEqual(5856d, calc.Calculate(senior));
         }
@@ -55,8 +58,8 @@ namespace Tests
         {
             var calc = new JuniorSalaryStrategy();
             var junior = devReports
-                .Where(r => r.WeeklyHours.Developer.Level == Developer.DeveloperLevel.Junior)
-                .Select(t => t.WeeklyHours)
+                .Where(r => r.MonthlyHours.Developer.Level == Developer.DeveloperLevel.Junior)
+                .Select(t => t.MonthlyHours)
                 .First();
             Assert.AreEqual(3000d, calc.Calculate(junior));
         }

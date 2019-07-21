@@ -8,26 +8,26 @@ namespace App
     {
         static void Main(string[] args)
         {
-            List<Timecard> devReports = new List<Timecard>
+            List<ITimecard> devReports = new List<ITimecard>
             {
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior },
-                        HourlyRate  = 30.5, WorkingHours = 160
+                        Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior,
+                        HourlyRate  = 30.5 }, WorkingHours = 160
                     },
                     SalaryStrategy = new SeniorSalaryStrategy()
                 },
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior },
-                        HourlyRate  = 20, WorkingHours = 150
+                        Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior,
+                        HourlyRate  = 20 }, WorkingHours = 150
                     },
                     SalaryStrategy = new JuniorSalaryStrategy()
                 },
-                new Timecard { WeeklyHours =
+                new Timecard { MonthlyHours =
                     new DeveloperReport {
-                        Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior },
-                        HourlyRate  = 30.5, WorkingHours = 180
+                        Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior,
+                        HourlyRate  = 30.5 }, WorkingHours = 180
                     },
                     SalaryStrategy = new SeniorSalaryStrategy()
                 }
@@ -48,6 +48,7 @@ namespace App
         public int Id { get; set; }
         public string Name { get; set; }
         public DeveloperLevel Level { get; set; }
+        public double HourlyRate { get; set; }
     }
 
     public class DeveloperReport
@@ -66,7 +67,7 @@ namespace App
     {
         public double Calculate(DeveloperReport rpt)
         {
-            return rpt.WorkingHours * rpt.HourlyRate * 1.2;
+            return rpt.WorkingHours * rpt.Developer.HourlyRate * 1.2;
         }
     }
 
@@ -74,31 +75,33 @@ namespace App
     {
         public double Calculate(DeveloperReport rpt)
         {
-            return rpt.WorkingHours * rpt.HourlyRate;
+            return rpt.WorkingHours * rpt.Developer.HourlyRate;
         }
     }
 
     public interface ITimecard
     {
+        ISalaryStrategy SalaryStrategy { get; set; }
+        DeveloperReport MonthlyHours { get; set; }
         double CalculateSalary();
     }
 
     public class Timecard : ITimecard
     {
         public ISalaryStrategy SalaryStrategy { get; set; }
-        public DeveloperReport WeeklyHours { get; set; }
+        public DeveloperReport MonthlyHours { get; set; }
 
         public double CalculateSalary()
         {
-            return SalaryStrategy.Calculate(WeeklyHours);
+            return SalaryStrategy.Calculate(MonthlyHours);
         }
     }
 
     public class SalaryCalculator
     {
-        private readonly IEnumerable<Timecard> _developerTime;
+        private readonly IEnumerable<ITimecard> _developerTime;
 
-        public SalaryCalculator(List<Timecard> developerTime)
+        public SalaryCalculator(IEnumerable<ITimecard> developerTime)
         {
             _developerTime = developerTime;
         }
