@@ -44,6 +44,27 @@ namespace App
         public double HourlyRate { get; set; }
     }
 
+    public interface ISalaryStrategy
+    {
+        double Calculate(DeveloperReport rpt);
+    }
+
+    public class SeniorSalaryStrategy : ISalaryStrategy
+    {
+        public double Calculate(DeveloperReport rpt)
+        {
+            return rpt.WorkingHours * rpt.HourlyRate * 1.2;
+        }
+    }
+
+    public class JuniorSalaryStrategy : ISalaryStrategy
+    {
+        public double Calculate(DeveloperReport rpt)
+        {
+            return rpt.WorkingHours * rpt.HourlyRate;
+        }
+    }
+
     public class SalaryCalculator
     {
         private readonly IEnumerable<DeveloperReport> _developerReports;

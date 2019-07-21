@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using App;
 using NUnit.Framework;
 
@@ -20,10 +21,26 @@ namespace Tests
             };
 
         [Test]
-        public void CanCalculateSeniorDevPay()
+        public void CanCalculatePayroll()
         {
             var payroll = new SalaryCalculator(devReports);
             Assert.AreEqual(15444d, payroll.CalculateTotalSalaries());
+        }
+
+        [Test]
+        public void CanCalculateSeniorDevPay()
+        {
+            var calc = new SeniorSalaryStrategy();
+            var senior = devReports.Where(r => r.Developer.Level == Developer.DeveloperLevel.Senior).First();
+            Assert.AreEqual(5856d, calc.Calculate(senior));
+        }
+
+        [Test]
+        public void CanCalclateJuniorDevPay()
+        {
+            var calc = new JuniorSalaryStrategy();
+            var junior = devReports.Where(r => r.Developer.Level == Developer.DeveloperLevel.Senior).First();
+            Assert.AreEqual(4880d, calc.Calculate(junior));
         }
 
     }
