@@ -55,7 +55,6 @@ namespace App
     {
         public Developer Developer { get; set; }
         public int WorkingHours { get; set; }
-        public double HourlyRate { get; set; }
     }
 
     public interface ISalaryStrategy
