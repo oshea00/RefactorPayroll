@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace App
 {
@@ -104,14 +105,7 @@ namespace App
 
         public double CalculateTotalSalaries()
         {
-            double totalSalaries = 0D;
-
-            foreach (var time in _developerTime)
-            {
-                totalSalaries += time.CalculateSalary(); 
-            }
-
-            return totalSalaries;
+            return _developerTime.Sum(time => time.CalculateSalary());
         }
     }
 
