@@ -9,9 +9,15 @@ namespace App
         {
             var devReports = new List<DeveloperReport>
             {
-                new DeveloperReport { Developer = new Developer { Id = 1, Name = "Dev1", Level = "Senior developer" }, HourlyRate  = 30.5, WorkingHours = 160 },
-                new DeveloperReport { Developer = new Developer { Id = 2, Name = "Dev2", Level = "Junior developer" }, HourlyRate  = 20, WorkingHours = 150 },
-                new DeveloperReport { Developer = new Developer { Id = 3, Name = "Dev3", Level = "Senior developer" }, HourlyRate  = 30.5, WorkingHours = 180 }
+                new DeveloperReport {
+                    Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior },
+                    HourlyRate  = 30.5, WorkingHours = 160 },
+                new DeveloperReport {
+                    Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior },
+                    HourlyRate  = 20, WorkingHours = 150 },
+                new DeveloperReport {
+                    Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior },
+                    HourlyRate  = 30.5, WorkingHours = 180 }
             };
 
             var d = new Developer
@@ -25,9 +31,10 @@ namespace App
 
     public class Developer
     {
+        public enum DeveloperLevel {Junior, Senior};
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Level { get; set; }
+        public DeveloperLevel Level { get; set; }
     }
 
     public class DeveloperReport
@@ -52,7 +59,7 @@ namespace App
 
             foreach (var devReport in _developerReports)
             {
-                if (devReport.Developer.Level == "Senior developer")
+                if (devReport.Developer.Level == Developer.DeveloperLevel.Senior)
                 {
                     totalSalaries += devReport.HourlyRate * devReport.WorkingHours * 1.2;
                 }

@@ -8,11 +8,16 @@ namespace Tests
     {
         List<DeveloperReport> devReports = new List<DeveloperReport>
             {
-                new DeveloperReport {Developer = new Developer{Id = 1, Name = "Dev1", Level = "Senior developer" }, HourlyRate  = 30.5, WorkingHours = 160 },
-                new DeveloperReport {Developer = new Developer{Id = 2, Name = "Dev2", Level = "Junior developer" }, HourlyRate  = 20, WorkingHours = 150 },
-                new DeveloperReport {Developer = new Developer{Id = 3, Name = "Dev3", Level = "Senior developer" }, HourlyRate  = 30.5, WorkingHours = 180 }
+                new DeveloperReport {
+                    Developer = new Developer { Id = 1, Name = "Dev1", Level = Developer.DeveloperLevel.Senior },
+                    HourlyRate  = 30.5, WorkingHours = 160 },
+                new DeveloperReport {
+                    Developer = new Developer { Id = 2, Name = "Dev2", Level = Developer.DeveloperLevel.Junior },
+                    HourlyRate  = 20, WorkingHours = 150 },
+                new DeveloperReport {
+                    Developer = new Developer { Id = 3, Name = "Dev3", Level = Developer.DeveloperLevel.Senior },
+                    HourlyRate  = 30.5, WorkingHours = 180 }
             };
-
 
         [Test]
         public void CanCalculateSeniorDevPay()
