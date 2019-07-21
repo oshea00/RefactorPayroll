@@ -54,8 +54,7 @@ MIT
 ## Suggested Attribution
 This work is by Mike O'Shea [@oshea00](https://twitter.com/oshea00)
 
-My Website
-[@oshea00](https://twitter.com/oshea00)
+[My Website](https://www.th2code.com)
 
 ## Acknowledgements
 Starting program came from article posted [here](https://code-maze.com/open-closed-principle/)
